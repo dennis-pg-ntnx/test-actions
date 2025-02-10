@@ -23,8 +23,8 @@ jobs:
       - name: Validate SSH test key
         run: cat ~/.ssh/id_rsa
 
-      - name: Add nutanix.com to known hosts
+      - name: Add to known hosts
         run: ssh-keyscan -H 3.81.226.191 >> ~/.ssh/known_hosts
 
       - name: Connect to SSH
-        run: ssh ec2-user3.81.226.191 "ls -al"
+        run: ssh ec2-user@3.81.226.191 "ls -al"
