@@ -19,7 +19,12 @@ jobs:
           mkdir -p ~/.ssh
           echo "${{secrets.SSH_PRIVATE_KEY}}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H ui.calm.nutanix.com >> ~/.ssh/known_hosts
+
+      - name: Validate SSH test key
+        run: cat ~/.ssh/id_rsa
+
+      - name: Add nutanix.com to known hosts
+        run: ssh-keyscan -H ui.calm.nutanix.com >> ~/.ssh/known_hosts
 
       - name: Connect to SSH
         run: ssh nutanix@ui.calm.nutanix.com "ls /apps/public/nc-components"
