@@ -1,0 +1,25 @@
+name: Deploy storybook
+
+on:
+  # push:
+  #   branches:
+  #     - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ui-ut-runner
+
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v2
+
+      - name: Set up SSH key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{secrets.SSH_PRIVATE_KEY}}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H ui.calm.nutanix.com >> ~/.ssh/known_hosts
+
+      - name: Connect to SSH
+        run: ssh nutanix@ui.calm.nutanix.com "ls /apps/public/nc-components"
