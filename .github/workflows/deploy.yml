@@ -8,7 +8,7 @@ on:
 
 jobs:
   deploy:
-    runs-on: ui-ut-runner
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout branch
